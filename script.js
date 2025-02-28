@@ -39,15 +39,18 @@ function init() {
 
                 // Create a PointsMaterial for dots
                 const pointsMaterial = new THREE.PointsMaterial({
-                    color: 0xffffff, // White dots (you can change this)
-                    size: 0.0005,     // Size of each dot (adjust as needed)
-                    sizeAttenuation: true // Dots scale with distance
+                    color: 0xffffff, // White dots
+                    size: 0.005,     // Size of each dot
+                    sizeAttenuation: true
                 });
 
                 // Create a Points object from the geometry
                 const points = new THREE.Points(geometry, pointsMaterial);
 
-                // Add the points to the scene instead of the mesh
+                // Adjust the initial position (lower the face)
+                points.position.y = -0.7; // Move down by 1 unit (adjust as needed)
+
+                // Add the points to the scene
                 scene.add(points);
             }
         });
@@ -57,7 +60,7 @@ function init() {
         console.error('Error loading GLB:', error);
     });
 
-    // Lighting (optional, since points don’t need it, but keeps scene consistent)
+    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
