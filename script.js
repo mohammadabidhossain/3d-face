@@ -30,19 +30,34 @@ function init() {
 
     // Load the GLB file
     const loader = new GLTFLoader();
-    loader.load('./abid.glb', function (gltf) {
-        scene.add(gltf.scene);
+    loader.load('./face.glb', function (gltf) {
+        // Traverse the GLB scene to find the mesh
+        gltf.scene.traverse(function (child) {
+            if (child.isMesh) {
+                // Get the geometry from the mesh
+                const geometry = child.geometry;
 
-        // Optional adjustments
-        gltf.scene.scale.set(1, 1, 1); // Adjust scale if needed
-        gltf.scene.position.set(0, 0, 0); // Center the model
+                // Create a PointsMaterial for dots
+                const pointsMaterial = new THREE.PointsMaterial({
+                    color: 0xffffff, // White dots (you can change this)
+                    size: 0.0005,     // Size of each dot (adjust as needed)
+                    sizeAttenuation: true // Dots scale with distance
+                });
+
+                // Create a Points object from the geometry
+                const points = new THREE.Points(geometry, pointsMaterial);
+
+                // Add the points to the scene instead of the mesh
+                scene.add(points);
+            }
+        });
 
         render();
     }, undefined, function (error) {
         console.error('Error loading GLB:', error);
     });
 
-    // Lighting
+    // Lighting (optional, since points don’t need it, but keeps scene consistent)
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
