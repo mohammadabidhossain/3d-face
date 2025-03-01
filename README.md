@@ -9,7 +9,7 @@ This project is a simple webpage that displays a 3D face model using [Three.js](
 - Responsive design that adjusts to window size
 
 ## Demo
-[webpage](mdabihossain.xyz/face/) 
+[webpage](https://mdabidhossain.xyz/face/) 
 
 ## Prerequisites
 To run this project locally, you’ll need:
